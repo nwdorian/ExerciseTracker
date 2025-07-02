@@ -12,6 +12,7 @@ public class ExerciseTrackerContext : DbContext
     }
 
     public DbSet<Exercise> Exercises { get; set; }
+    public DbSet<Category> Categories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -14,6 +14,13 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
         builder.Property(e => e.Id)
             .ValueGeneratedNever();
 
+        builder.HasOne(e => e.Category)
+            .WithMany(t => t.Exercises)
+            .HasForeignKey(e => e.CategoryId);
+
+        builder.Property(e => e.CategoryId)
+            .IsRequired();
+
         builder.HasQueryFilter(e => e.IsActive);
     }
 }
