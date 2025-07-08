@@ -40,5 +40,9 @@ public static class InfrastructureServiceExtensions
         );
     }
 
-    private static void AddInfrastructureServices(IServiceCollection services) => services.AddScoped<ICategoryRepository, CategoryRepository>();
+    private static void AddInfrastructureServices(IServiceCollection services)
+    {
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IExerciseRepository, ExerciseRepository>();
+    }
 }
