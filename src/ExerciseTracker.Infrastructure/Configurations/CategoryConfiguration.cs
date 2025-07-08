@@ -1,4 +1,3 @@
-using System;
 using ExerciseTracker.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -17,6 +16,9 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder
             .HasMany(t => t.Exercises)
             .WithOne(e => e.Category);
+
+        builder.Property(c => c.Name)
+            .IsRequired();
 
         builder.HasQueryFilter(e => e.IsActive);
     }

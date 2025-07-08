@@ -1,0 +1,40 @@
+@HostAddress = http://localhost:5212
+
+### Get all categories
+
+GET {{HostAddress}}/api/categories
+Accept: application/json
+
+
+### Get category by Id
+
+@CategoryId = 4b13333e-7778-40c2-ac93-96f33b1bc2c6
+
+GET {{HostAddress}}/api/categories/{{CategoryId}}
+Accept: application/json
+
+### Create a new Category
+
+POST {{HostAddress}}/api/categories/
+Content-Type: application/json
+
+{
+    "name": "Cardio"
+}
+
+### Delete a category
+
+@CategoryId = 45080221-71b4-4b1e-81de-ae1aa810d5ae
+
+DELETE {{HostAddress}}/api/categories/{{CategoryId}}
+
+### Update a category
+
+@CategoryId = 4b13333e-7778-40c2-ac93-96f33b1bc2c6
+
+PUT {{HostAddress}}/api/categories/{{CategoryId}}
+Content-Type: application/json
+
+{
+    "name": "Cardio1111"
+}

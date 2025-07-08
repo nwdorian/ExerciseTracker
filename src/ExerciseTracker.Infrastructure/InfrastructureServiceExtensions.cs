@@ -1,5 +1,7 @@
+using ExerciseTracker.Application.Interfaces.Infrastructure;
 using ExerciseTracker.Infrastructure.Contexts;
 using ExerciseTracker.Infrastructure.Interceptors;
+using ExerciseTracker.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +10,17 @@ namespace ExerciseTracker.Infrastructure;
 
 public static class InfrastructureServiceExtensions
 {
-    public static IServiceCollection AddDbContextWithSqlServer(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddInfrastructure(
+        this IServiceCollection services,
+        IConfiguration configuration)
+    {
+        AddDbContextWithSqlServer(services, configuration);
+        AddInfrastructureServices(services);
+
+        return services;
+    }
+
+    private static void AddDbContextWithSqlServer(IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<SoftDeleteInterceptor>();
         services.AddSingleton<UpdateAuditableInterceptor>();
@@ -26,7 +38,7 @@ public static class InfrastructureServiceExtensions
                         updateAuditableInterceptor);
             }
         );
-
-        return services;
     }
+
+    private static void AddInfrastructureServices(IServiceCollection services) => services.AddScoped<ICategoryRepository, CategoryRepository>();
 }

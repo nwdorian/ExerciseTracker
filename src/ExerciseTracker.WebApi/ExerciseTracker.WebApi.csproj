@@ -13,10 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ExerciseTracker.Application\ExerciseTracker.Application.csproj" />
     <ProjectReference Include="..\ExerciseTracker.Infrastructure\ExerciseTracker.Infrastructure.csproj" />
   </ItemGroup>
