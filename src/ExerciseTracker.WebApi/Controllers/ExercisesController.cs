@@ -1,6 +1,6 @@
 using ExerciseTracker.Application.Contracts.Exercises;
 using ExerciseTracker.Application.Interfaces.Application;
-using ExerciseTracker.Domain.Errors;
+using ExerciseTracker.WebApi.Mappings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExerciseTracker.WebApi.Controllers;
@@ -28,8 +28,9 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> GetById(Guid id)
     {
         var result = await _exerciseService.GetById(id);
+
         return result.IsFailure
-            ? NotFound(result.Error)
+            ? result.Error.ToActionResult()
             : Ok(result.Value);
     }
 
@@ -37,8 +38,9 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> Create(ExerciseRequest request)
     {
         var result = await _exerciseService.Create(request);
+
         return result.IsFailure
-            ? BadRequest(result.Error)
+            ? result.Error.ToActionResult()
             : CreatedAtAction(nameof(GetById), new { result.Value.Id }, result.Value);
     }
 
@@ -46,13 +48,9 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _exerciseService.Delete(id);
-        if (result.Error.Type is ErrorType.NotFound)
-        {
-            return NotFound(result.Error);
-        }
 
         return result.IsFailure
-            ? BadRequest(result.Error)
+            ? result.Error.ToActionResult()
             : NoContent();
     }
 
@@ -60,13 +58,9 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> Update(Guid id, ExerciseRequest request)
     {
         var result = await _exerciseService.Update(id, request);
-        if (result.Error.Type is ErrorType.NotFound)
-        {
-            return NotFound(result.Error);
-        }
 
         return result.IsFailure
-            ? BadRequest(result.Error)
+            ? result.Error.ToActionResult()
             : NoContent();
     }
 }
