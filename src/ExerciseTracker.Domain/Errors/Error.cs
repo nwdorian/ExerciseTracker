@@ -1,6 +1,8 @@
+using System.Text.Json.Serialization;
+
 namespace ExerciseTracker.Domain.Errors;
 
-public record class Error(string Code, string Message, ErrorType type)
+public record class Error(string Code, string Message, [property: JsonIgnore] ErrorType type)
 {
     public static readonly Error None = new(string.Empty, string.Empty, ErrorType.None);
 

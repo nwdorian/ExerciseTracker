@@ -20,15 +20,14 @@ public class ExerciseService : IExerciseService
     {
         var result = await _exerciseRepository.GetAll();
 
-        var response = result.Value.ToResponse();
-
-        return Result.Success(response);
+        return Result.Success(result.Value.ToResponse());
     }
     public async Task<Result<ExerciseResponse>> GetById(Guid id)
     {
         var result = await _exerciseRepository.GetById(id);
+
         return result.IsFailure
-            ? Result.Failure<ExerciseResponse>(result.Error)
+            ? result.Error
             : Result.Success(result.Value.ToResponse());
     }
     public async Task<Result<ExerciseResponse>> Create(ExerciseRequest request)
@@ -36,7 +35,7 @@ public class ExerciseService : IExerciseService
         var getCategoryResult = await _categoryRepository.GetById(request.CategoryId);
         if (getCategoryResult.IsFailure)
         {
-            return Result.Failure<ExerciseResponse>(getCategoryResult.Error);
+            return getCategoryResult.Error;
         }
 
         var category = getCategoryResult.Value;
@@ -57,7 +56,7 @@ public class ExerciseService : IExerciseService
         var createResult = await _exerciseRepository.Create(exercise);
 
         return createResult.IsFailure
-            ? Result.Failure<ExerciseResponse>(createResult.Error)
+            ? createResult.Error
             : Result.Success(exercise.ToResponse());
     }
     public async Task<Result> Delete(Guid id)
@@ -70,6 +69,7 @@ public class ExerciseService : IExerciseService
 
         var exercise = getResult.Value;
         var deleteResult = await _exerciseRepository.Delete(exercise);
+
         return deleteResult.IsFailure
             ? deleteResult.Error
             : Result.Success();
@@ -105,6 +105,7 @@ public class ExerciseService : IExerciseService
         exercise.Description = request.Description;
 
         var updateResult = await _exerciseRepository.Update(exercise);
+
         return updateResult.IsFailure
             ? updateResult.Error
             : Result.Success();

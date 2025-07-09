@@ -34,7 +34,7 @@ public class ExerciseRepository : IExerciseRepository
 
         return exercise is not null
             ? Result.Success(exercise)
-            : Result.Failure<Exercise>(ExerciseErrors.NotFound);
+            : ExerciseErrors.NotFound;
     }
 
     public async Task<Result> Create(Exercise exercise)
