@@ -13,6 +13,10 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(c => c.Id)
             .ValueGeneratedNever();
 
+        builder.Property(e => e.Name)
+            .HasMaxLength(100)
+            .IsRequired();
+
         builder.HasQueryFilter(e => e.IsActive);
     }
 }

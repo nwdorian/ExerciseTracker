@@ -19,6 +19,8 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
             .HasForeignKey(e => e.CategoryId)
             .IsRequired();
 
+        builder.Ignore(e => e.Duration);
+
         builder.HasQueryFilter(e => e.IsActive);
     }
 }
