@@ -1,7 +1,7 @@
 using ExerciseTracker.Application.Contracts.Categories;
 using ExerciseTracker.Application.Interfaces.Application;
-using ExerciseTracker.Domain.Errors;
 using ExerciseTracker.Domain.Models;
+using ExerciseTracker.WebApi.Mappings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExerciseTracker.WebApi.Controllers;
@@ -31,7 +31,7 @@ public class CategoriesController : ControllerBase
     {
         var result = await _categoryService.GetById(id);
         return result.IsFailure
-            ? NotFound(result.Error)
+            ? result.Error.ToActionResult()
             : Ok(result.Value);
     }
 
@@ -40,7 +40,7 @@ public class CategoriesController : ControllerBase
     {
         var result = await _categoryService.Create(request);
         return result.IsFailure
-            ? BadRequest(result.Error)
+            ? result.Error.ToActionResult()
             : CreatedAtAction(nameof(GetById), new { result.Value.Id }, result.Value);
     }
 
@@ -49,13 +49,8 @@ public class CategoriesController : ControllerBase
     {
         var result = await _categoryService.Delete(id);
 
-        if (result.Error.Type is ErrorType.NotFound)
-        {
-            return NotFound(result.Error);
-        }
-
         return result.IsFailure
-            ? BadRequest(result.Error)
+            ? result.Error.ToActionResult()
             : NoContent();
     }
 
@@ -63,13 +58,9 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> Update(Guid id, CategoryRequest request)
     {
         var result = await _categoryService.Update(id, request);
-        if (result.Error.Type is ErrorType.NotFound)
-        {
-            return NotFound(result.Error);
-        }
 
         return result.IsFailure
-            ? BadRequest(result.Error)
+            ? result.Error.ToActionResult()
             : NoContent();
     }
 }
