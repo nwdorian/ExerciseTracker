@@ -1,4 +1,6 @@
-namespace ExerciseTracker.Domain.Primitives;
+using ExerciseTracker.Domain.Errors;
+
+namespace ExerciseTracker.Domain.Results;
 
 public class Result<TValue> : Result
 {
@@ -17,5 +19,10 @@ public class Result<TValue> : Result
     public static implicit operator Result<TValue>(TValue? value)
     {
         return Create(value);
+    }
+
+    public static implicit operator Result<TValue>(Error error)
+    {
+        return Failure<TValue>(error);
     }
 }

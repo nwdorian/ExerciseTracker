@@ -1,7 +1,7 @@
 using ExerciseTracker.Application.Errors;
 using ExerciseTracker.Application.Interfaces.Infrastructure;
 using ExerciseTracker.Domain.Models;
-using ExerciseTracker.Domain.Primitives;
+using ExerciseTracker.Domain.Results;
 using ExerciseTracker.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 

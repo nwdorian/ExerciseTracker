@@ -1,4 +1,4 @@
-namespace ExerciseTracker.Domain.Primitives;
+namespace ExerciseTracker.Domain.Errors;
 
 public record class Error(string Code, string Message)
 {
@@ -7,9 +7,4 @@ public record class Error(string Code, string Message)
     public static readonly Error NullValue = new("Error.NullValue", "The specified result value is null.");
 
     public static readonly Error ConditionNotMet = new("Error.ConditionNotMet", "The specified condition was not met.");
-
-    public static implicit operator Result(Error error)
-    {
-        return Result.Failure(error);
-    }
 }

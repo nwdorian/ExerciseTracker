@@ -1,4 +1,4 @@
-using ExerciseTracker.Domain.Primitives;
+using ExerciseTracker.Domain.Errors;
 
 namespace ExerciseTracker.Application.Errors;
 

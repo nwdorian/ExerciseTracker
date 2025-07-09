@@ -1,4 +1,6 @@
-namespace ExerciseTracker.Domain.Primitives;
+using ExerciseTracker.Domain.Errors;
+
+namespace ExerciseTracker.Domain.Results;
 
 public class Result
 {
@@ -35,4 +37,9 @@ public class Result
     public static Result Create(bool condition) => condition ? Success() : Failure(Error.ConditionNotMet);
 
     public static Result<TValue> Create<TValue>(TValue? value) => value is not null ? Success(value) : Failure<TValue>(Error.NullValue);
+
+    public static implicit operator Result(Error error)
+    {
+        return Failure(error);
+    }
 }

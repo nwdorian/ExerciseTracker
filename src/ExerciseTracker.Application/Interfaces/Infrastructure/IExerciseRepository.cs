@@ -1,5 +1,5 @@
 using ExerciseTracker.Domain.Models;
-using ExerciseTracker.Domain.Primitives;
+using ExerciseTracker.Domain.Results;
 
 namespace ExerciseTracker.Application.Interfaces.Infrastructure;
 
