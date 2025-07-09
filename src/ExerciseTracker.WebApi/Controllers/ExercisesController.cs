@@ -1,6 +1,6 @@
 using ExerciseTracker.Application.Contracts.Exercises;
-using ExerciseTracker.Application.Errors;
 using ExerciseTracker.Application.Interfaces.Application;
+using ExerciseTracker.Domain.Errors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExerciseTracker.WebApi.Controllers;
@@ -46,7 +46,7 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> Delete(Guid id)
     {
         var result = await _exerciseService.Delete(id);
-        if (result.Error == ExerciseErrors.NotFound)
+        if (result.Error.Type is ErrorType.NotFound)
         {
             return NotFound(result.Error);
         }
@@ -60,7 +60,7 @@ public class ExercisesController : ControllerBase
     public async Task<IActionResult> Update(Guid id, ExerciseRequest request)
     {
         var result = await _exerciseService.Update(id, request);
-        if (result.Error == ExerciseErrors.NotFound)
+        if (result.Error.Type is ErrorType.NotFound)
         {
             return NotFound(result.Error);
         }
