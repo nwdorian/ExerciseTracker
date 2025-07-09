@@ -1,7 +1,7 @@
 using ExerciseTracker.Application.Errors;
 using ExerciseTracker.Application.Interfaces.Infrastructure;
 using ExerciseTracker.Domain.Models;
-using ExerciseTracker.Domain.Primitives;
+using ExerciseTracker.Domain.Results;
 using ExerciseTracker.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -34,7 +34,7 @@ public class ExerciseRepository : IExerciseRepository
 
         return exercise is not null
             ? Result.Success(exercise)
-            : Result.Failure<Exercise>(ExerciseErrors.NotFound);
+            : ExerciseErrors.NotFound;
     }
 
     public async Task<Result> Create(Exercise exercise)

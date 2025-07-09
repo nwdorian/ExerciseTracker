@@ -1,7 +1,7 @@
 using ExerciseTracker.Application.Errors;
 using ExerciseTracker.Application.Interfaces.Infrastructure;
 using ExerciseTracker.Domain.Models;
-using ExerciseTracker.Domain.Primitives;
+using ExerciseTracker.Domain.Results;
 using ExerciseTracker.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -29,7 +29,7 @@ public class CategoryRepository : ICategoryRepository
         var category = await _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
         return category is not null
             ? Result.Success(category)
-            : Result.Failure<Category>(CategoryErrors.NotFound);
+            : CategoryErrors.NotFound;
     }
 
     public async Task<Result> Create(Category category)

@@ -8,9 +8,7 @@ Accept: application/json
 
 ### Get exercise by id
 
-@ExerciseId = 5f337c24-7efb-45d6-92df-bc403899b533
-
-GET {{HostAddress}}/{{Route}}/{{ExerciseId}}
+GET {{HostAddress}}/{{Route}}/5f337c24-7efb-45d6-92df-bc403899b533
 Accept: application/json
 
 ### Create exercise
@@ -27,16 +25,12 @@ Content-Type: application/json
 
 ### Delete exercise
 
-@ExerciseId = 5f337c24-7efb-45d6-92df-bc403899b533
-
-DELETE {{HostAddress}}/{{Route}}/{{ExerciseId}}
+DELETE {{HostAddress}}/{{Route}}/5f337c24-7efb-45d6-92df-bc403899b533
 Accept: application/json
 
 ### Update exercise
 
-@ExerciseId = 5aa2e5b9-b630-48ea-b239-5d94322b9be5
-
-PUT {{HostAddress}}/{{Route}}/{{ExerciseId}}
+PUT {{HostAddress}}/{{Route}}/5f337c24-7efb-45d6-92df-bc403899b533
 Content-Type: application/json
 
 {

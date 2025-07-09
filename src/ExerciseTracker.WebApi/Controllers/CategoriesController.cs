@@ -1,6 +1,6 @@
 using ExerciseTracker.Application.Contracts.Categories;
-using ExerciseTracker.Application.Errors;
 using ExerciseTracker.Application.Interfaces.Application;
+using ExerciseTracker.Domain.Errors;
 using ExerciseTracker.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -49,7 +49,7 @@ public class CategoriesController : ControllerBase
     {
         var result = await _categoryService.Delete(id);
 
-        if (result.Error == CategoryErrors.NotFound)
+        if (result.Error.Type is ErrorType.NotFound)
         {
             return NotFound(result.Error);
         }
@@ -63,7 +63,7 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> Update(Guid id, CategoryRequest request)
     {
         var result = await _categoryService.Update(id, request);
-        if (result.Error == CategoryErrors.NotFound)
+        if (result.Error.Type is ErrorType.NotFound)
         {
             return NotFound(result.Error);
         }
