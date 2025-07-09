@@ -13,13 +13,6 @@ public class CategoryConfiguration : IEntityTypeConfiguration<Category>
         builder.Property(c => c.Id)
             .ValueGeneratedNever();
 
-        builder
-            .HasMany(t => t.Exercises)
-            .WithOne(e => e.Category);
-
-        builder.Property(c => c.Name)
-            .IsRequired();
-
         builder.HasQueryFilter(e => e.IsActive);
     }
 }

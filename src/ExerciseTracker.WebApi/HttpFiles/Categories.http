@@ -8,9 +8,7 @@ Accept: application/json
 
 ### Get category by Id
 
-@CategoryId = 4b13333e-7778-40c2-ac93-96f33b1bc2c6
-
-GET {{HostAddress}}/api/categories/{{CategoryId}}
+GET {{HostAddress}}/api/categories/02d2e4a7-38ae-4b46-a384-980e3dc495bf
 Accept: application/json
 
 ### Create a new Category
@@ -19,20 +17,16 @@ POST {{HostAddress}}/api/categories/
 Content-Type: application/json
 
 {
-    "name": "Cardio"
+    "name": "Weight"
 }
 
 ### Delete a category
 
-@CategoryId = 45080221-71b4-4b1e-81de-ae1aa810d5ae
-
-DELETE {{HostAddress}}/api/categories/{{CategoryId}}
+DELETE {{HostAddress}}/api/categories/02d2e4a7-38ae-4b46-a384-980e3dc495bf
 
 ### Update a category
 
-@CategoryId = 4b13333e-7778-40c2-ac93-96f33b1bc2c6
-
-PUT {{HostAddress}}/api/categories/{{CategoryId}}
+PUT {{HostAddress}}/api/categories/4b13333e-7778-40c2-ac93-96f33b1bc2c6
 Content-Type: application/json
 
 {

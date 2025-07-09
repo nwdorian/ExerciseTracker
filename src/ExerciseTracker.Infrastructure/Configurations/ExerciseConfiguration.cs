@@ -16,9 +16,7 @@ public class ExerciseConfiguration : IEntityTypeConfiguration<Exercise>
 
         builder.HasOne(e => e.Category)
             .WithMany(t => t.Exercises)
-            .HasForeignKey(e => e.CategoryId);
-
-        builder.Property(e => e.CategoryId)
+            .HasForeignKey(e => e.CategoryId)
             .IsRequired();
 
         builder.HasQueryFilter(e => e.IsActive);
