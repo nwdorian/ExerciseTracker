@@ -5,9 +5,8 @@ public enum ErrorType
     None,
     NullValue,
     ConditionNotMet,
-    NotCreated,
     NotFound,
+    NotCreated,
     NotDeleted,
-    NotUpdated,
-    NotModified
+    NotUpdated
 }
