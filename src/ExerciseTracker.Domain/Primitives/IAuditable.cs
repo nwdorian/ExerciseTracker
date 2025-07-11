@@ -2,6 +2,8 @@ namespace ExerciseTracker.Domain.Primitives;
 
 public interface IAuditable
 {
-    DateTime DateCreated { get; set; }
-    DateTime DateUpdated { get; set; }
+    DateTime DateCreated { get; }
+    DateTime DateUpdated { get; }
+    void AuditCreation();
+    void AuditModification();
 }

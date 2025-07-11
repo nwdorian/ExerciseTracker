@@ -31,7 +31,7 @@ public sealed class SoftDeleteInterceptor : SaveChangesInterceptor
         foreach (var softDeletable in entries)
         {
             softDeletable.State = EntityState.Modified;
-            softDeletable.Entity.IsActive = false;
+            softDeletable.Entity.SoftDelete();
         }
     }
 }

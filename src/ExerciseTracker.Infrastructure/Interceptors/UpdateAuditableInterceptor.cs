@@ -21,19 +21,18 @@ public sealed class UpdateAuditableInterceptor : SaveChangesInterceptor
 
     private static void UpdateAuditableEntities(DbContext context)
     {
-        var now = DateTime.Now;
         var entries = context.ChangeTracker.Entries<IAuditable>().ToList();
 
         foreach (var auditable in entries)
         {
             if (auditable.State == EntityState.Added)
             {
-                auditable.Property(a => a.DateCreated).CurrentValue = now;
+                auditable.Entity.AuditCreation();
             }
 
             if (auditable.State == EntityState.Modified)
             {
-                auditable.Property(a => a.DateUpdated).CurrentValue = now;
+                auditable.Entity.AuditModification();
             }
         }
     }
