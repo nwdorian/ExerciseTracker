@@ -37,21 +37,9 @@ public class ExerciseService : IExerciseService
         {
             return getCategoryResult.Error;
         }
-
         var category = getCategoryResult.Value;
 
-        var exercise = new Exercise
-        {
-            Id = Guid.NewGuid(),
-            CategoryId = category.Id,
-            Category = category,
-            Start = request.Start,
-            End = request.End,
-            Description = request.Description,
-            IsActive = true,
-            DateCreated = DateTime.Now,
-            DateUpdated = DateTime.Now,
-        };
+        var exercise = new Exercise(category.Id, request.Start, request.End, request.Description, category);
 
         var createResult = await _exerciseRepository.Create(exercise);
 
@@ -96,13 +84,13 @@ public class ExerciseService : IExerciseService
             {
                 return getCategoryResult.Error;
             }
-            exercise.CategoryId = request.CategoryId;
-            exercise.Category = getCategoryResult.Value;
+            var category = getCategoryResult.Value;
+
+            exercise.ChangeCategory(category);
         }
 
-        exercise.Start = request.Start;
-        exercise.End = request.End;
-        exercise.Description = request.Description;
+        exercise.ChangePeriod(request.Start, request.End);
+        exercise.ChangeDescription(request.Description);
 
         var updateResult = await _exerciseRepository.Update(exercise);
 

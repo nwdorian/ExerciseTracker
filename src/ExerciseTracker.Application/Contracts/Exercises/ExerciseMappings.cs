@@ -9,8 +9,9 @@ public static class ExerciseMappings
         new(exercise.Id,
             exercise.Start,
             exercise.End,
+            exercise.Duration,
             exercise.Description ?? string.Empty,
-            exercise.Category!.ToResponse());
+            exercise.Category.ToResponse());
     public static List<ExerciseResponse> ToResponse(this List<Exercise> exercises) =>
         exercises.Select(e => e.ToResponse()).ToList();
 }

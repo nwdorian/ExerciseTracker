@@ -31,14 +31,7 @@ public class CategoryService : ICategoryService
 
     public async Task<Result<CategoryResponse>> Create(CategoryRequest request)
     {
-        var category = new Category
-        {
-            Id = Guid.NewGuid(),
-            Name = request.Name,
-            IsActive = true,
-            DateCreated = DateTime.Now,
-            DateUpdated = DateTime.Now
-        };
+        var category = new Category(request.Name);
 
         var result = await _categoryRepository.Create(category);
 
@@ -70,9 +63,9 @@ public class CategoryService : ICategoryService
         {
             return getResult.Error;
         }
-
         var category = getResult.Value;
-        category.Name = request.Name;
+
+        category.ChangeName(request.Name);
 
         var updateResult = await _categoryRepository.Update(category);
 

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ExerciseTracker.Infrastructure.Migrations
 {
     [DbContext(typeof(ExerciseTrackerContext))]
-    [Migration("20250708024157_InitialCreate")]
+    [Migration("20250711135025_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -41,7 +41,8 @@ namespace ExerciseTracker.Infrastructure.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
