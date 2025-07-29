@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using ExerciseTracker.Application.Contracts.Exercises.Commands;
 using ExerciseTracker.Application.Contracts.Exercises.Queries;
 using ExerciseTracker.Application.Interfaces.Application;
@@ -10,8 +11,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ExerciseTracker.WebApi.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class ExercisesController : ControllerBase
 {
     private readonly IExerciseService _exerciseService;

@@ -2,18 +2,18 @@
 
 ### Get all categories
 
-GET {{HostAddress}}/api/categories
+GET {{HostAddress}}/api/v1/categories
 Accept: application/json
 
 
 ### Get category by Id
 
-GET {{HostAddress}}/api/categories/1d80bbc0-b48d-4c0d-9f0d-b0e2b2822880
+GET {{HostAddress}}/api/v1/categories/4d5a9197-5238-40dc-b0b4-3d4979e62277
 Accept: application/json
 
 ### Create a new Category
 
-POST {{HostAddress}}/api/categories/
+POST {{HostAddress}}/api/v1/categories/
 Content-Type: application/json
 
 {
@@ -22,11 +22,11 @@ Content-Type: application/json
 
 ### Delete a category
 
-DELETE {{HostAddress}}/api/categories/d2fa2386-1b48-4d4b-b870-a1f50ee22c03
+DELETE {{HostAddress}}/api/v1/categories/d2fa2386-1b48-4d4b-b870-a1f50ee22c03
 
 ### Update a category
 
-PUT {{HostAddress}}/api/categories/d2fa2386-1b48-4d4b-b870-a1f50ee22c03
+PUT {{HostAddress}}/api/v1/categories/d2fa2386-1b48-4d4b-b870-a1f50ee22c03
 Content-Type: application/json
 
 {
