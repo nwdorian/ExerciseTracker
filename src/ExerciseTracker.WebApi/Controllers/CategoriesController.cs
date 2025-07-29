@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using ExerciseTracker.Application.Contracts.Categories.Commands;
 using ExerciseTracker.Application.Contracts.Categories.Queries;
 using ExerciseTracker.Application.Interfaces.Application;
@@ -14,8 +15,9 @@ namespace ExerciseTracker.WebApi.Controllers;
 /// <summary>
 /// Defines endpoints related to <see cref="Category"/>
 /// </summary>
-[Route("api/[controller]")]
+[Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
+[ApiVersion("1.0")]
 public class CategoriesController : ControllerBase
 {
     private readonly ICategoryService _categoryService;
