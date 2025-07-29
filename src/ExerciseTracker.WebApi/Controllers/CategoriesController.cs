@@ -1,5 +1,10 @@
-using ExerciseTracker.Application.Contracts.Categories;
+using ExerciseTracker.Application.Contracts.Categories.Commands;
+using ExerciseTracker.Application.Contracts.Categories.Queries;
 using ExerciseTracker.Application.Interfaces.Application;
+using ExerciseTracker.Contracts.V1.Categories;
+using ExerciseTracker.Contracts.V1.Categories.Requests;
+using ExerciseTracker.Contracts.V1.Categories.Responses;
+using ExerciseTracker.Contracts.V1.Exercises;
 using ExerciseTracker.Domain.Models;
 using ExerciseTracker.WebApi.Mappings;
 using Microsoft.AspNetCore.Mvc;
@@ -23,44 +28,79 @@ public class CategoriesController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var result = await _categoryService.GetAll();
-        return Ok(result.Value);
+
+        var response = new GetAllCategoriesResponse(result.Value.Select(c => new CategoryRecord(c.Id, c.Name)).ToList());
+
+        return Ok(response);
     }
 
     [HttpGet("{id}")]
     public async Task<IActionResult> GetById(Guid id)
     {
-        var result = await _categoryService.GetById(id);
-        return result.IsFailure
-            ? result.Error.ToActionResult()
-            : Ok(result.Value);
+        var query = new GetCategoryQuery(id);
+        var result = await _categoryService.GetById(query);
+
+        if (result.IsFailure)
+        {
+            return result.Error.ToActionResult();
+        }
+
+        var response = new GetCategoryByIdResponse(result.Value.Id,
+            result.Value.Name,
+            result.Value.Exercises
+                .Select(e => new ExerciseShallowRecord(
+                    e.Id,
+                    e.Start,
+                    e.End,
+                    e.Duration,
+                    e.Description))
+                .ToList()
+                );
+
+        return Ok(response);
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CategoryRequest request)
+    public async Task<IActionResult> Create(CreateCategoryRequest request)
     {
-        var result = await _categoryService.Create(request);
-        return result.IsFailure
-            ? result.Error.ToActionResult()
-            : CreatedAtAction(nameof(GetById), new { result.Value.Id }, result.Value);
+        var command = new CreateCategoryCommand(request.Name!);
+        var result = await _categoryService.Create(command);
+
+        if (result.IsFailure)
+        {
+            return result.Error.ToActionResult();
+        }
+
+        var response = new CreateCategoryResponse(result.Value.Id, result.Value.Name);
+
+        return CreatedAtAction(nameof(GetById), new { response.Id }, response);
     }
 
     [HttpDelete("{id}")]
     public async Task<IActionResult> Delete(Guid id)
     {
-        var result = await _categoryService.Delete(id);
+        var command = new DeleteCategoryCommand(id);
+        var result = await _categoryService.Delete(command);
 
-        return result.IsFailure
-            ? result.Error.ToActionResult()
-            : NoContent();
+        if (result.IsFailure)
+        {
+            return result.Error.ToActionResult();
+        }
+
+        return NoContent();
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Update(Guid id, CategoryRequest request)
+    public async Task<IActionResult> Update(Guid id, UpdateCategoryRequest request)
     {
-        var result = await _categoryService.Update(id, request);
+        var command = new UpdateCategoryCommand(id, request.Name!);
+        var result = await _categoryService.Update(command);
 
-        return result.IsFailure
-            ? result.Error.ToActionResult()
-            : NoContent();
+        if (result.IsFailure)
+        {
+            return result.Error.ToActionResult();
+        }
+
+        return NoContent();
     }
 }

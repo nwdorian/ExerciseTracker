@@ -8,7 +8,7 @@ Accept: application/json
 
 ### Get exercise by id
 
-GET {{HostAddress}}/{{Route}}/ed15cfd0-230d-43a8-a16f-72cd695eb790
+GET {{HostAddress}}/{{Route}}/c25815e1-c51e-472c-a52e-98fbf3759863
 Accept: application/json
 
 ### Create exercise
@@ -17,25 +17,25 @@ POST {{HostAddress}}/{{Route}}
 Content-Type: application/json
 
 {
-    "categoryId": "1633ad81-cafc-4bf4-9afb-a769771dad23",
+    "categoryId": "1d80bbc0-b48d-4c0d-9f0d-b0e2b2822880",
     "start": "2025-07-09T23:00:00",
-    "end": "2025-07-10T00:00:00",
-    "description": "test2"
+    "end": "2025-07-10T23:30:00",
+    "description": "test2213"
 }
 
 ### Delete exercise
 
-DELETE {{HostAddress}}/{{Route}}/40970887-1082-461a-8271-89766bb3ad09
+DELETE {{HostAddress}}/{{Route}}/2bd73804-beea-4894-933d-2a6cd188cf48
 Accept: application/json
 
 ### Update exercise
 
-PUT {{HostAddress}}/{{Route}}/ed15cfd0-230d-43a8-a16f-72cd695eb790
+PUT {{HostAddress}}/{{Route}}/2bd73804-beea-4894-933d-2a6cd188cf48
 Content-Type: application/json
 
 {
-    "categoryId": "1633ad81-cafc-4bf4-9afb-a769771dad23",
-    "start": "2025-07-09T11:00:00",
-    "end": "2025-07-09T12:00:00",
+    "categoryId": "1d80bbc0-b48d-4c0d-9f0d-b0e2b2822880",
+    "start": "2025-07-09T23:00:00",
+    "end": "2025-07-09T23:30:00",
     "description": "test2"
 }

@@ -1,4 +1,6 @@
 using ExerciseTracker.Application.Contracts.Exercises;
+using ExerciseTracker.Application.Contracts.Exercises.Commands;
+using ExerciseTracker.Application.Contracts.Exercises.Queries;
 using ExerciseTracker.Application.Interfaces.Application;
 using ExerciseTracker.Application.Interfaces.Infrastructure;
 using ExerciseTracker.Domain.Models;
@@ -16,21 +18,21 @@ public class ExerciseService : IExerciseService
         _exerciseRepository = exerciseRepository;
         _categoryRepository = categoryRepository;
     }
-    public async Task<Result<List<ExerciseResponse>>> GetAll()
+    public async Task<Result<List<ExerciseDto>>> GetAll()
     {
         var result = await _exerciseRepository.GetAll();
 
-        return Result.Success(result.Value.ToResponse());
+        return Result.Success(result.Value.ToExerciseResponseList());
     }
-    public async Task<Result<ExerciseResponse>> GetById(Guid id)
+    public async Task<Result<ExerciseDto>> GetById(GetExerciseQuery request)
     {
-        var result = await _exerciseRepository.GetById(id);
+        var result = await _exerciseRepository.GetById(request.ExerciseId);
 
         return result.IsFailure
             ? result.Error
-            : Result.Success(result.Value.ToResponse());
+            : Result.Success(result.Value.ToExerciseResponse());
     }
-    public async Task<Result<ExerciseResponse>> Create(ExerciseRequest request)
+    public async Task<Result<ExerciseDto>> Create(CreateExerciseCommand request)
     {
         var getCategoryResult = await _categoryRepository.GetById(request.CategoryId);
         if (getCategoryResult.IsFailure)
@@ -45,11 +47,11 @@ public class ExerciseService : IExerciseService
 
         return createResult.IsFailure
             ? createResult.Error
-            : Result.Success(exercise.ToResponse());
+            : Result.Success(exercise.ToExerciseResponse());
     }
-    public async Task<Result> Delete(Guid id)
+    public async Task<Result> Delete(DeleteExerciseCommand request)
     {
-        var getResult = await _exerciseRepository.GetById(id);
+        var getResult = await _exerciseRepository.GetById(request.ExerciseId);
         if (getResult.IsFailure)
         {
             return getResult.Error;
@@ -62,9 +64,9 @@ public class ExerciseService : IExerciseService
             ? deleteResult.Error
             : Result.Success();
     }
-    public async Task<Result> Update(Guid id, ExerciseRequest request)
+    public async Task<Result> Update(UpdateExerciseCommand request)
     {
-        var getExerciseResult = await _exerciseRepository.GetById(id);
+        var getExerciseResult = await _exerciseRepository.GetById(request.ExerciseId);
         if (getExerciseResult.IsFailure)
         {
             return getExerciseResult.Error;
@@ -72,7 +74,7 @@ public class ExerciseService : IExerciseService
 
         var exercise = getExerciseResult.Value;
 
-        if (!isModified(exercise, request))
+        if (!IsModified(exercise, request))
         {
             return Result.Success();
         }
@@ -99,7 +101,7 @@ public class ExerciseService : IExerciseService
             : Result.Success();
     }
 
-    private static bool isModified(Exercise exercise, ExerciseRequest request)
+    private static bool IsModified(Exercise exercise, UpdateExerciseCommand request)
     {
         return exercise.Start != request.Start
             || exercise.End != request.End
