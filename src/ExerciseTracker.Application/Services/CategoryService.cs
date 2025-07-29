@@ -1,4 +1,6 @@
 using ExerciseTracker.Application.Contracts.Categories;
+using ExerciseTracker.Application.Contracts.Categories.Commands;
+using ExerciseTracker.Application.Contracts.Categories.Queries;
 using ExerciseTracker.Application.Interfaces.Application;
 using ExerciseTracker.Application.Interfaces.Infrastructure;
 using ExerciseTracker.Domain.Models;
@@ -14,22 +16,22 @@ public class CategoryService : ICategoryService
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<Result<List<CategoryResponse>>> GetAll()
+    public async Task<Result<List<CategoryShallowDto>>> GetAll()
     {
         var result = await _categoryRepository.GetAll();
 
-        return Result.Success(result.Value.ToResponse());
+        return Result.Success(result.Value.ToCategoryShallowResponseList());
     }
-    public async Task<Result<CategoryResponse>> GetById(Guid id)
+    public async Task<Result<CategoryDto>> GetById(GetCategoryQuery request)
     {
-        var result = await _categoryRepository.GetById(id);
+        var result = await _categoryRepository.GetById(request.CategoryId);
 
         return result.IsFailure
             ? result.Error
-            : Result.Success(result.Value.ToResponse());
+            : Result.Success(result.Value.ToCategoryResponse());
     }
 
-    public async Task<Result<CategoryResponse>> Create(CategoryRequest request)
+    public async Task<Result<CategoryShallowDto>> Create(CreateCategoryCommand request)
     {
         var category = new Category(request.Name);
 
@@ -37,12 +39,12 @@ public class CategoryService : ICategoryService
 
         return result.IsFailure
             ? result.Error
-            : Result.Success(category.ToResponse());
+            : Result.Success(category.ToCategoryShallowResponse());
     }
 
-    public async Task<Result> Delete(Guid id)
+    public async Task<Result> Delete(DeleteCategoryCommand request)
     {
-        var getResult = await _categoryRepository.GetById(id);
+        var getResult = await _categoryRepository.GetById(request.CategoryId);
         if (getResult.IsFailure)
         {
             return getResult.Error;
@@ -56,16 +58,16 @@ public class CategoryService : ICategoryService
             : Result.Success();
     }
 
-    public async Task<Result> Update(Guid id, CategoryRequest request)
+    public async Task<Result> Update(UpdateCategoryCommand request)
     {
-        var getResult = await _categoryRepository.GetById(id);
+        var getResult = await _categoryRepository.GetById(request.CategoryId);
         if (getResult.IsFailure)
         {
             return getResult.Error;
         }
         var category = getResult.Value;
 
-        category.ChangeName(request.Name);
+        category.ChangeName(request.NewName);
 
         var updateResult = await _categoryRepository.Update(category);
 

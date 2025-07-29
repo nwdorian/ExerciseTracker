@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ExerciseTracker.Application\ExerciseTracker.Application.csproj" />
+    <ProjectReference Include="..\ExerciseTracker.Contracts\ExerciseTracker.Contracts.csproj" />
     <ProjectReference Include="..\ExerciseTracker.Infrastructure\ExerciseTracker.Infrastructure.csproj" />
   </ItemGroup>
 

@@ -1,13 +1,15 @@
 using ExerciseTracker.Application.Contracts.Categories;
+using ExerciseTracker.Application.Contracts.Categories.Commands;
+using ExerciseTracker.Application.Contracts.Categories.Queries;
 using ExerciseTracker.Domain.Results;
 
 namespace ExerciseTracker.Application.Interfaces.Application;
 
 public interface ICategoryService
 {
-    Task<Result<List<CategoryResponse>>> GetAll();
-    Task<Result<CategoryResponse>> GetById(Guid id);
-    Task<Result<CategoryResponse>> Create(CategoryRequest request);
-    Task<Result> Delete(Guid id);
-    Task<Result> Update(Guid id, CategoryRequest request);
+    Task<Result<List<CategoryShallowDto>>> GetAll();
+    Task<Result<CategoryDto>> GetById(GetCategoryQuery request);
+    Task<Result<CategoryShallowDto>> Create(CreateCategoryCommand request);
+    Task<Result> Delete(DeleteCategoryCommand request);
+    Task<Result> Update(UpdateCategoryCommand request);
 }
