@@ -10,12 +10,12 @@ namespace ExerciseTracker.Infrastructure;
 
 public static class InfrastructureServiceExtensions
 {
-    public static IServiceCollection AddInfrastructure(
+    public static IServiceCollection AddInfrastructureServices(
         this IServiceCollection services,
         IConfiguration configuration)
     {
         AddDbContextWithSqlServer(services, configuration);
-        AddInfrastructureServices(services);
+        AddInfrastructure(services);
 
         return services;
     }
@@ -40,7 +40,7 @@ public static class InfrastructureServiceExtensions
         );
     }
 
-    private static void AddInfrastructureServices(IServiceCollection services)
+    private static void AddInfrastructure(IServiceCollection services)
     {
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IExerciseRepository, ExerciseRepository>();
