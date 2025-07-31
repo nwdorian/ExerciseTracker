@@ -6,7 +6,7 @@ namespace ExerciseTracker.Application;
 
 public static class ApplicationServiceExtensions
 {
-    public static IServiceCollection AddApplication(this IServiceCollection services)
+    public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<ICategoryService, CategoryService>();
         services.AddScoped<IExerciseService, ExerciseService>();
