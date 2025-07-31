@@ -1,6 +1,8 @@
 using Asp.Versioning;
 using ExerciseTracker.Application;
 using ExerciseTracker.Infrastructure;
+using ExerciseTracker.Infrastructure.Contexts;
+using ExerciseTracker.Infrastructure.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -31,6 +33,14 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    using var scope = app.Services.CreateScope();
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<ExerciseTrackerContext>();
+    context.Database.EnsureCreated();
+
+    await SeedingService.InitializeAsync(context);
 }
 
 app.UseHttpsRedirection();
