@@ -14,6 +14,8 @@ public static class MiddlewareConfiguration
             await SeedDatabase(app);
         }
 
+        app.UseExceptionHandler();
+
         app.UseHttpsRedirection();
 
         app.UseAuthorization();
