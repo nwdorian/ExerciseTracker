@@ -1,5 +1,6 @@
 using ExerciseTracker.Infrastructure.Contexts;
 using ExerciseTracker.Infrastructure.Seeding;
+using Serilog;
 
 namespace ExerciseTracker.WebApi.Configurations;
 
@@ -14,9 +15,11 @@ public static class MiddlewareConfiguration
             await SeedDatabase(app);
         }
 
-        app.UseExceptionHandler();
-
         app.UseHttpsRedirection();
+
+        app.UseSerilogRequestLogging();
+
+        app.UseExceptionHandler();
 
         app.UseAuthorization();
 
