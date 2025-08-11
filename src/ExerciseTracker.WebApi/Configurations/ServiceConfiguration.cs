@@ -1,6 +1,8 @@
 using Asp.Versioning;
 using ExerciseTracker.Application;
 using ExerciseTracker.Infrastructure;
+using FluentValidation;
+using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
 namespace ExerciseTracker.WebApi.Configurations;
 
@@ -12,6 +14,8 @@ public static class ServiceConfiguration
         services.AddInfrastructureServices(configuration);
 
         ConfigureApiVersioning(services);
+
+        ConfigureFluentValidation(services);
 
         services.AddControllers();
 
@@ -33,6 +37,16 @@ public static class ServiceConfiguration
         {
             options.GroupNameFormat = "'v'V";
             options.SubstituteApiVersionInUrl = true;
+        });
+    }
+
+    private static void ConfigureFluentValidation(IServiceCollection services)
+    {
+        services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+        services.AddFluentValidationAutoValidation(configuration =>
+        {
+            configuration.DisableBuiltInModelValidation = true;
         });
     }
 }
