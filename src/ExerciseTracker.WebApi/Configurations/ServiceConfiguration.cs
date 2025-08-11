@@ -2,6 +2,7 @@ using Asp.Versioning;
 using ExerciseTracker.Application;
 using ExerciseTracker.Contracts;
 using ExerciseTracker.Infrastructure;
+using ExerciseTracker.WebApi.Exceptions;
 using FluentValidation;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 
@@ -15,11 +16,10 @@ public static class ServiceConfiguration
         services.AddInfrastructureServices(configuration);
 
         ConfigureApiVersioning(services);
-
         ConfigureFluentValidation(services);
+        ConfigureGlobalExceptionHandling(services);
 
         services.AddControllers();
-
         services.AddOpenApi();
 
         return services;
@@ -48,6 +48,18 @@ public static class ServiceConfiguration
         services.AddFluentValidationAutoValidation(configuration =>
         {
             configuration.DisableBuiltInModelValidation = true;
+        });
+    }
+
+    private static void ConfigureGlobalExceptionHandling(IServiceCollection services)
+    {
+        services.AddExceptionHandler<GlobalExceptionHandler>();
+        services.AddProblemDetails(configure =>
+        {
+            configure.CustomizeProblemDetails = context =>
+            {
+                context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+            };
         });
     }
 }
