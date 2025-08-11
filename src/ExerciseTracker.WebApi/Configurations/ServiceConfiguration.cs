@@ -1,5 +1,6 @@
 using Asp.Versioning;
 using ExerciseTracker.Application;
+using ExerciseTracker.Contracts;
 using ExerciseTracker.Infrastructure;
 using FluentValidation;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
@@ -42,7 +43,7 @@ public static class ServiceConfiguration
 
     private static void ConfigureFluentValidation(IServiceCollection services)
     {
-        services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+        services.AddValidatorsFromAssembly(ContractsAssembly.Assembly);
 
         services.AddFluentValidationAutoValidation(configuration =>
         {
