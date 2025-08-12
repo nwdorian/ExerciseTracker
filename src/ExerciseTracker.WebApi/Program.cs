@@ -1,11 +1,35 @@
 using ExerciseTracker.WebApi.Configurations;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+try
+{
+    Log.Information("Creating host");
 
-builder.Services.AddWebApplicationServices(builder.Configuration);
+    var builder = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+    builder.ConfigureSerilog();
 
-await app.UseWebApplicationMiddleware();
+    Log.Information("Configuring services");
 
-app.Run();
+    builder.Services.AddWebApplicationServices(builder.Configuration);
+
+    var app = builder.Build();
+
+    Log.Information("Configuring middleware");
+
+    await app.UseWebApplicationMiddleware();
+
+    Log.Information("Application starting");
+
+    app.Run();
+
+    Log.Information("Application starting");
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
