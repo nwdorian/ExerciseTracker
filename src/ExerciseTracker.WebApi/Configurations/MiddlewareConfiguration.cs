@@ -1,5 +1,6 @@
 using ExerciseTracker.Infrastructure.Contexts;
 using ExerciseTracker.Infrastructure.Seeding;
+using ExerciseTracker.WebApi.Middleware;
 using Serilog;
 
 namespace ExerciseTracker.WebApi.Configurations;
@@ -16,6 +17,8 @@ public static class MiddlewareConfiguration
         }
 
         app.UseHttpsRedirection();
+
+        app.UseMiddleware<RequestLogContextMiddleware>();
 
         app.UseSerilogRequestLogging();
 

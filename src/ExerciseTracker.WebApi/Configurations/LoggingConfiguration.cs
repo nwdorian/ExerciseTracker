@@ -6,7 +6,8 @@ public static class LoggingConfiguration
 {
     public static WebApplicationBuilder ConfigureSerilog(this WebApplicationBuilder builder)
     {
-        builder.Host.UseSerilog((_, config) => config.ReadFrom.Configuration(builder.Configuration));
+        builder.Host.UseSerilog((context, config) =>
+            config.ReadFrom.Configuration(context.Configuration));
 
         return builder;
     }
