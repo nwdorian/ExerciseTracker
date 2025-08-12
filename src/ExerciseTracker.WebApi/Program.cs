@@ -1,5 +1,10 @@
+using System.Globalization;
 using ExerciseTracker.WebApi.Configurations;
 using Serilog;
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
+    .CreateBootstrapLogger();
 
 try
 {
@@ -22,8 +27,6 @@ try
     Log.Information("Application starting");
 
     app.Run();
-
-    Log.Information("Application starting");
 }
 catch (Exception ex)
 {
