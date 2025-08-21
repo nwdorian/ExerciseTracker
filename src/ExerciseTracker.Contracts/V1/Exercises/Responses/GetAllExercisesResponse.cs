@@ -6,5 +6,5 @@ public class GetAllExercisesResponse
     {
         Exercises = exercises;
     }
-    public List<ExerciseRecord> Exercises { get; set; } = new();
+    public List<ExerciseRecord> Exercises { get; set; }
 }

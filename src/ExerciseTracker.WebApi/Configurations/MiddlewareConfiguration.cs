@@ -39,14 +39,13 @@ public static class MiddlewareConfiguration
         try
         {
             var context = services.GetRequiredService<ExerciseTrackerContext>();
-            context.Database.EnsureCreated();
+            await context.Database.EnsureCreatedAsync();
 
             await SeedingService.InitializeAsync(context);
         }
         catch (Exception)
         {
             //TODO log the error
-            throw;
         }
 
     }

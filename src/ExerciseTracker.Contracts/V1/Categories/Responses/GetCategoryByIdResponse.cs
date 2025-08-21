@@ -12,5 +12,5 @@ public class GetCategoryByIdResponse
     }
     public Guid Id { get; set; }
     public string? Name { get; set; }
-    public List<ExerciseShallowRecord> Exercises { get; set; } = new();
+    public List<ExerciseShallowRecord> Exercises { get; set; }
 }
