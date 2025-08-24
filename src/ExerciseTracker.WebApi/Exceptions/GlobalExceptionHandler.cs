@@ -6,17 +6,19 @@ namespace ExerciseTracker.WebApi.Exceptions;
 public class GlobalExceptionHandler : IExceptionHandler
 {
     private readonly IProblemDetailsService _problemDetailsService;
+    private readonly ILogger<GlobalExceptionHandler> _logger;
 
-    public GlobalExceptionHandler(IProblemDetailsService problemDetailsService)
+    public GlobalExceptionHandler(IProblemDetailsService problemDetailsService, ILogger<GlobalExceptionHandler> logger)
     {
         _problemDetailsService = problemDetailsService;
+        _logger = logger;
     }
     public async ValueTask<bool> TryHandleAsync(
         HttpContext httpContext,
         Exception exception,
         CancellationToken cancellationToken)
     {
-        //TODO add logging
+        _logger.LogError(exception, "Exception occurred: {ExceptionMessage}", exception.Message);
 
         return await _problemDetailsService.TryWriteAsync(new ProblemDetailsContext
         {

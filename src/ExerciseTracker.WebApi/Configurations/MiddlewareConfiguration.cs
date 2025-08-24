@@ -43,9 +43,10 @@ public static class MiddlewareConfiguration
 
             await SeedingService.InitializeAsync(context);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            //TODO log the error
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred seeding the database: {ExceptionMessage}", ex.Message);
         }
 
     }
