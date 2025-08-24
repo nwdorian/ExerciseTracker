@@ -6,5 +6,5 @@ public class GetAllCategoriesResponse
     {
         Categories = categories;
     }
-    public List<CategoryRecord> Categories { get; set; } = new();
+    public List<CategoryRecord> Categories { get; set; }
 }

@@ -1,11 +1,38 @@
+using System.Globalization;
 using ExerciseTracker.WebApi.Configurations;
+using Serilog;
 
-var builder = WebApplication.CreateBuilder(args);
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
+    .CreateBootstrapLogger();
 
-builder.Services.AddWebApplicationServices(builder.Configuration);
+try
+{
+    Log.Information("Creating host");
 
-var app = builder.Build();
+    var builder = WebApplication.CreateBuilder(args);
 
-await app.UseWebApplicationMiddleware();
+    builder.ConfigureSerilog();
 
-app.Run();
+    Log.Information("Configuring services");
+
+    builder.Services.AddWebApplicationServices(builder.Configuration);
+
+    var app = builder.Build();
+
+    Log.Information("Configuring middleware");
+
+    await app.UseWebApplicationMiddleware();
+
+    Log.Information("Application starting");
+
+    await app.RunAsync();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    await Log.CloseAndFlushAsync();
+}

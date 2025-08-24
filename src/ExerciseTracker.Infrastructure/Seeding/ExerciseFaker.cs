@@ -3,6 +3,7 @@ using ExerciseTracker.Domain.Models;
 
 namespace ExerciseTracker.Infrastructure.Seeding;
 
+#pragma warning disable S1699 // Constructors should only call non-overridable methods
 public class ExerciseFaker : Faker<Exercise>
 {
     public ExerciseFaker(List<Category> categories)
@@ -22,3 +23,4 @@ public class ExerciseFaker : Faker<Exercise>
         });
     }
 }
+#pragma warning restore S1699 // Constructors should only call non-overridable methods
