@@ -6,7 +6,7 @@ using ExerciseTracker.Contracts.V1.Categories;
 using ExerciseTracker.Contracts.V1.Exercises;
 using ExerciseTracker.Contracts.V1.Exercises.Requests;
 using ExerciseTracker.Contracts.V1.Exercises.Responses;
-using ExerciseTracker.WebApi.Mappings;
+using ExerciseTracker.WebApi.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExerciseTracker.WebApi.Controllers;
@@ -51,7 +51,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         var response = new GetExerciseByIdResponse(
@@ -78,7 +78,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         var response = new CreateExerciseResponse(
@@ -101,7 +101,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         return NoContent();
@@ -115,7 +115,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         return NoContent();

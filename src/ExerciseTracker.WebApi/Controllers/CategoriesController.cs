@@ -7,7 +7,7 @@ using ExerciseTracker.Contracts.V1.Categories.Requests;
 using ExerciseTracker.Contracts.V1.Categories.Responses;
 using ExerciseTracker.Contracts.V1.Exercises;
 using ExerciseTracker.Domain.Models;
-using ExerciseTracker.WebApi.Mappings;
+using ExerciseTracker.WebApi.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExerciseTracker.WebApi.Controllers;
@@ -44,7 +44,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         var response = new GetCategoryByIdResponse(result.Value.Id,
@@ -70,7 +70,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         var response = new CreateCategoryResponse(result.Value.Id, result.Value.Name);
@@ -86,7 +86,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         return NoContent();
@@ -100,7 +100,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.Error.ToActionResult();
+            return result.ToProblemDetails();
         }
 
         return NoContent();
