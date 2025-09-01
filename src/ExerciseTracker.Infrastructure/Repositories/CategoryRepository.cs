@@ -31,7 +31,7 @@ public class CategoryRepository : ICategoryRepository
             .FirstOrDefaultAsync(c => c.Id == id);
         return category is not null
             ? Result.Success(category)
-            : CategoryErrors.NotFound;
+            : CategoryErrors.NotFound(id);
     }
 
     public async Task<Result> Create(Category category)
@@ -49,7 +49,7 @@ public class CategoryRepository : ICategoryRepository
         var deleted = await _context.SaveChangesAsync();
         return deleted > 0
             ? Result.Success()
-            : CategoryErrors.NotDeleted;
+            : CategoryErrors.NotDeleted(category.Id);
     }
 
     public async Task<Result> Update(Category category)
@@ -58,6 +58,6 @@ public class CategoryRepository : ICategoryRepository
         var updated = await _context.SaveChangesAsync();
         return updated > 0
             ? Result.Success()
-            : CategoryErrors.NotUpdated;
+            : CategoryErrors.NotUpdated(category.Id);
     }
 }
