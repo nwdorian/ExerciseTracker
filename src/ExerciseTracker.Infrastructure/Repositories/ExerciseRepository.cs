@@ -34,7 +34,7 @@ public class ExerciseRepository : IExerciseRepository
 
         return exercise is not null
             ? Result.Success(exercise)
-            : ExerciseErrors.NotFound;
+            : ExerciseErrors.NotFound(id);
     }
 
     public async Task<Result> Create(Exercise exercise)
@@ -52,7 +52,7 @@ public class ExerciseRepository : IExerciseRepository
         var deleted = await _context.SaveChangesAsync();
         return deleted > 0
             ? Result.Success()
-            : ExerciseErrors.NotDeleted;
+            : ExerciseErrors.NotDeleted(exercise.Id);
     }
 
     public async Task<Result> Update(Exercise exercise)
@@ -61,6 +61,6 @@ public class ExerciseRepository : IExerciseRepository
         var updated = await _context.SaveChangesAsync();
         return updated > 0
             ? Result.Success()
-            : ExerciseErrors.NotUpdated;
+            : ExerciseErrors.NotUpdated(exercise.Id);
     }
 }
