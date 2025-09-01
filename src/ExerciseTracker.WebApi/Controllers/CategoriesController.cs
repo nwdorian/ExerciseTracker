@@ -44,7 +44,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         var response = new GetCategoryByIdResponse(result.Value.Id,
@@ -70,7 +70,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         var response = new CreateCategoryResponse(result.Value.Id, result.Value.Name);
@@ -86,7 +86,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         return NoContent();
@@ -100,7 +100,7 @@ public class CategoriesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         return NoContent();

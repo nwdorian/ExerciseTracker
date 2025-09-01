@@ -51,7 +51,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         var response = new GetExerciseByIdResponse(
@@ -78,7 +78,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         var response = new CreateExerciseResponse(
@@ -101,7 +101,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         return NoContent();
@@ -115,7 +115,7 @@ public class ExercisesController : ControllerBase
 
         if (result.IsFailure)
         {
-            return result.ToProblemDetails();
+            return result.Error.ToProblemDetails();
         }
 
         return NoContent();

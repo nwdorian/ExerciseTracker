@@ -1,26 +1,20 @@
 using ExerciseTracker.Domain.Errors;
-using ExerciseTracker.Domain.Results;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ExerciseTracker.WebApi.Extensions;
 
-public static class ResultExtensions
+public static class ErrorExtensions
 {
-    public static IActionResult ToProblemDetails(this Result result)
+    public static IActionResult ToProblemDetails(this Error error)
     {
-        if (result.IsSuccess)
-        {
-            throw new InvalidOperationException();
-        }
-
         var problemDetails = new ProblemDetails
         {
-            Status = GetStatusCode(result.Error.Type),
-            Title = GetTitle(result.Error.Type),
-            Type = GetType(result.Error.Type),
+            Status = GetStatusCode(error.Type),
+            Title = GetTitle(error.Type),
+            Type = GetType(error.Type),
             Extensions = new Dictionary<string, object?>
             {
-                { "errors", new[] { result.Error } }
+                { "errors", new[] { error } }
             }
         };
 
