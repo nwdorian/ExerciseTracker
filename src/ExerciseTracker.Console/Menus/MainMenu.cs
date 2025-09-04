@@ -2,7 +2,7 @@ using Spectre.Console;
 
 namespace ExerciseTracker.Console.Menus;
 
-public class MainMenu
+public class MainMenu : IMenu
 {
     private enum MenuOptions
     {
