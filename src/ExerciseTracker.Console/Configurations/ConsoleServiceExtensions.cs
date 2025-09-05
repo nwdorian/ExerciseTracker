@@ -1,4 +1,3 @@
-using ExerciseTracker.Console.Configurations.Enums;
 using ExerciseTracker.Console.Menus;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,7 +14,9 @@ public static class ConsoleServiceExtensions
 
     private static IServiceCollection ConfigureMenuServices(this IServiceCollection services)
     {
-        services.AddKeyedTransient<IMenu, MainMenu>(MenuType.Main);
+        services.AddTransient<MainMenu>();
+        services.AddTransient<CategoriesMenu>();
+        services.AddTransient<ExercisesMenu>();
 
         return services;
     }

@@ -2,8 +2,19 @@ using Spectre.Console;
 
 namespace ExerciseTracker.Console.Menus;
 
-public class MainMenu : IMenu
+public class MainMenu
 {
+    private readonly ExercisesMenu _exercisesMenu;
+    private readonly CategoriesMenu _categoriesMenu;
+
+    public MainMenu(
+        ExercisesMenu exercisesMenu,
+        CategoriesMenu categoriesMenu)
+    {
+        _exercisesMenu = exercisesMenu;
+        _categoriesMenu = categoriesMenu;
+    }
+
     private enum MenuOptions
     {
         ManageExercises,
@@ -32,12 +43,17 @@ public class MainMenu : IMenu
                     .AddChoices(Enum.GetValues<MenuOptions>())
             );
 
-            // selection switch
-            // {
-            //     MenuOptions.ManageExercises =>
-            //     MenuOptions.ManageCategories => 
-            //     MenuOptions.Exit => 
-            // };
+            switch (selection)
+            {
+                case MenuOptions.ManageExercises:
+                    await _exercisesMenu.Display();
+                    break;
+                case MenuOptions.ManageCategories:
+                    await _categoriesMenu.Display();
+                    break;
+                case MenuOptions.Exit:
+                    break;
+            }
         }
     }
 
