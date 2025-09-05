@@ -1,0 +1,60 @@
+using Spectre.Console;
+
+namespace ExerciseTracker.Console.Menus;
+
+public class CategoriesMenu
+{
+    private enum MenuOptions
+    {
+        GetAll,
+        Add,
+        Delete,
+        Update,
+        MainMenu
+    }
+
+    public async Task Display()
+    {
+        var exit = false;
+
+        while (!exit)
+        {
+            AnsiConsole.Clear();
+
+            var selection = await AnsiConsole.PromptAsync(
+                new SelectionPrompt<MenuOptions>()
+                    .Title("Select from the menu:")
+                    .UseConverter(GetMenuOptions)
+                    .AddChoices(Enum.GetValues<MenuOptions>())
+            );
+
+            switch (selection)
+            {
+                case MenuOptions.GetAll:
+                    break;
+                case MenuOptions.Add:
+                    break;
+                case MenuOptions.Delete:
+                    break;
+                case MenuOptions.Update:
+                    break;
+                case MenuOptions.MainMenu:
+                    exit = true;
+                    break;
+            }
+        }
+    }
+
+    private static string GetMenuOptions(MenuOptions options)
+    {
+        return options switch
+        {
+            MenuOptions.GetAll => "Get All Categories",
+            MenuOptions.Add => "Add Category",
+            MenuOptions.Delete => "Delete Category",
+            MenuOptions.Update => "Update Category",
+            MenuOptions.MainMenu => "Main Menu",
+            _ => options.ToString()
+        };
+    }
+}
