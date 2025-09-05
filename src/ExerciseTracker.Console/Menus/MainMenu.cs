@@ -1,3 +1,4 @@
+using ExerciseTracker.Console.Input;
 using Spectre.Console;
 
 namespace ExerciseTracker.Console.Menus;
@@ -52,6 +53,7 @@ public class MainMenu
                     await _categoriesMenu.Display();
                     break;
                 case MenuOptions.Exit:
+                    exit = UserInput.ConfirmExit();
                     break;
             }
         }
