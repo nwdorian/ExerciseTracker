@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 var builder = Host.CreateApplicationBuilder();
 
-builder.Services.AddConsoleServices();
+builder.Services.AddConsoleServices(builder.Configuration);
 
 using var host = builder.Build();
 
