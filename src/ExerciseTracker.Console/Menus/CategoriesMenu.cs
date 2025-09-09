@@ -1,9 +1,16 @@
+using ExerciseTracker.Console.Abstractions.Views;
 using Spectre.Console;
 
 namespace ExerciseTracker.Console.Menus;
 
 public class CategoriesMenu
 {
+    private readonly ICategoriesView _categoriesView;
+
+    public CategoriesMenu(ICategoriesView categoriesView)
+    {
+        _categoriesView = categoriesView;
+    }
     private enum MenuOptions
     {
         GetAll,
@@ -31,12 +38,16 @@ public class CategoriesMenu
             switch (selection)
             {
                 case MenuOptions.GetAll:
+                    await _categoriesView.GetAllCategories();
                     break;
                 case MenuOptions.Add:
+                    await _categoriesView.CreateCategory();
                     break;
                 case MenuOptions.Delete:
+                    await _categoriesView.DeleteCategory();
                     break;
                 case MenuOptions.Update:
+                    await _categoriesView.UpdateCategory();
                     break;
                 case MenuOptions.MainMenu:
                     exit = true;
