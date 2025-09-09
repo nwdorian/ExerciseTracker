@@ -1,7 +1,7 @@
 using ExerciseTracker.Contracts.V1.Categories.Requests;
 using ExerciseTracker.Contracts.V1.Categories.Responses;
 
-namespace ExerciseTracker.Console.Abstractions.Services;
+namespace ExerciseTracker.Console.Features.Categories.Abstractions;
 
 public interface ICategoriesService
 {

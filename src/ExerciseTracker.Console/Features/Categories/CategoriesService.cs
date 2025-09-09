@@ -1,13 +1,12 @@
-using ExerciseTracker.Console.Abstractions.Services;
-using ExerciseTracker.Console.Clients;
-using ExerciseTracker.Console.Input;
+using ExerciseTracker.Console.Common.Input;
+using ExerciseTracker.Console.Features.Categories.Abstractions;
 using ExerciseTracker.Contracts.V1.Categories;
 using ExerciseTracker.Contracts.V1.Categories.Requests;
 using ExerciseTracker.Contracts.V1.Categories.Responses;
 using ExerciseTracker.Contracts.V1.Exercises;
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Services;
+namespace ExerciseTracker.Console.Features.Categories;
 
 public class CategoriesService : ICategoriesService
 {

@@ -1,9 +1,7 @@
-using ExerciseTracker.Console.Abstractions.Services;
-using ExerciseTracker.Console.Abstractions.Views;
 using ExerciseTracker.Console.Clients;
+using ExerciseTracker.Console.Features.Categories;
+using ExerciseTracker.Console.Features.Categories.Abstractions;
 using ExerciseTracker.Console.Menus;
-using ExerciseTracker.Console.Services;
-using ExerciseTracker.Console.Views;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

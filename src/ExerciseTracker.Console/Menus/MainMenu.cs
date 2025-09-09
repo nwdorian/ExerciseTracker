@@ -1,4 +1,5 @@
-using ExerciseTracker.Console.Input;
+using ExerciseTracker.Console.Common.Input;
+using ExerciseTracker.Console.Features.Categories;
 using Spectre.Console;
 
 namespace ExerciseTracker.Console.Menus;

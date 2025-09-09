@@ -1,4 +1,4 @@
-namespace ExerciseTracker.Console.Abstractions.Views;
+namespace ExerciseTracker.Console.Features.Categories.Abstractions;
 
 public interface ICategoriesView
 {
