@@ -2,7 +2,7 @@ using ExerciseTracker.Contracts.V1.Exercises.Requests;
 using ExerciseTracker.Contracts.V1.Exercises.Responses;
 using Refit;
 
-namespace ExerciseTracker.Console.Clients;
+namespace ExerciseTracker.Console.Features.Exercises.Abstractions;
 
 public interface IExercisesClient
 {

@@ -1,6 +1,6 @@
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Menus;
+namespace ExerciseTracker.Console.Features.Exercises;
 
 public class ExercisesMenu
 {
