@@ -1,7 +1,7 @@
 using ExerciseTracker.Console.Common.Validation;
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Input;
+namespace ExerciseTracker.Console.Common.Input;
 
 public static class UserInput
 {

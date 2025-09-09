@@ -1,11 +1,9 @@
-using ExerciseTracker.Console.Abstractions.Services;
-using ExerciseTracker.Console.Abstractions.Views;
-using ExerciseTracker.Console.Engines;
-using ExerciseTracker.Console.Input;
+using ExerciseTracker.Console.Common.Input;
+using ExerciseTracker.Console.Features.Categories.Abstractions;
 using ExerciseTracker.Contracts.V1.Categories.Requests;
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Views;
+namespace ExerciseTracker.Console.Features.Categories;
 
 public class CategoriesView : ICategoriesView
 {
@@ -26,7 +24,7 @@ public class CategoriesView : ICategoriesView
             UserInput.PromptAnyKeyToContinue();
             return;
         }
-        TableEngine.DisplayCategoriesTable(categories);
+        CategoriesTables.DisplayCategoriesTable(categories);
 
         var input = UserInput.PromptPositiveInteger("Enter category Id [grey](or enter 0 to exit)[/]:", allowZero: true);
         var index = UserInput.GetValidListIndex(input, categories);
@@ -40,7 +38,7 @@ public class CategoriesView : ICategoriesView
         {
             return;
         }
-        TableEngine.DisplayCategoryExercisesTable(category);
+        CategoriesTables.DisplayCategoryExercises(category);
         UserInput.PromptAnyKeyToContinue();
     }
 
@@ -58,7 +56,7 @@ public class CategoriesView : ICategoriesView
         {
             Name = categoryName
         };
-        TableEngine.DisplayCreateCategoryDetailsTable(category);
+        CategoriesTables.DisplayCreateCategoryDetails(category);
 
         if (await AnsiConsole.ConfirmAsync("Are you sure you want to create a new category?"))
         {
@@ -77,7 +75,7 @@ public class CategoriesView : ICategoriesView
             return;
         }
 
-        TableEngine.DisplayCategoriesTable(categories);
+        CategoriesTables.DisplayCategoriesTable(categories);
         var input = UserInput.PromptPositiveInteger("Enter category Id to delete [grey](or enter 0 to exit)[/]:", allowZero: true);
         var index = UserInput.GetValidListIndex(input, categories);
         if (index == -1)
@@ -90,7 +88,7 @@ public class CategoriesView : ICategoriesView
         {
             return;
         }
-        TableEngine.DisplayCategoryDetailsTable(category);
+        CategoriesTables.DisplayCategoryDetails(category);
         if (await AnsiConsole.ConfirmAsync("Are you sure you want to delete this category?"))
         {
             await _categoriesService.DeleteCategory(category.Id);
@@ -108,7 +106,7 @@ public class CategoriesView : ICategoriesView
             return;
         }
 
-        TableEngine.DisplayCategoriesTable(categories);
+        CategoriesTables.DisplayCategoriesTable(categories);
         var input = UserInput.PromptPositiveInteger("Enter category Id to update [grey](or enter 0 to exit)[/]:", allowZero: true);
         var index = UserInput.GetValidListIndex(input, categories);
         if (index == -1)
@@ -121,7 +119,7 @@ public class CategoriesView : ICategoriesView
         {
             return;
         }
-        TableEngine.DisplayCategoryDetailsTable(category);
+        CategoriesTables.DisplayCategoryDetails(category);
 
         AnsiConsole.MarkupLine("[grey]Enter new information or leave empty to skip.[/]");
         var name = UserInput.PromptString("New name:", allowEmpty: true);

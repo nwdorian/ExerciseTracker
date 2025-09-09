@@ -1,6 +1,6 @@
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Menus;
+namespace ExerciseTracker.Console.Features.Exercises;
 
 public class ExercisesMenu
 {
@@ -13,7 +13,11 @@ public class ExercisesMenu
         MainMenu
     }
 
+#pragma warning disable CA1822 // Mark members as static
+#pragma warning disable S2325 // Methods and properties that don't access instance data should be static
     public async Task Display()
+#pragma warning restore S2325 // Methods and properties that don't access instance data should be static
+#pragma warning restore CA1822 // Mark members as static
     {
         var exit = false;
 

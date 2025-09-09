@@ -2,7 +2,7 @@ using ExerciseTracker.Contracts.V1.Categories.Requests;
 using ExerciseTracker.Contracts.V1.Categories.Responses;
 using Refit;
 
-namespace ExerciseTracker.Console.Clients;
+namespace ExerciseTracker.Console.Features.Categories.Abstractions;
 
 public interface ICategoriesClient
 {

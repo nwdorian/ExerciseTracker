@@ -1,5 +1,5 @@
 ﻿using ExerciseTracker.Console.Configurations;
-using ExerciseTracker.Console.Menus;
+using ExerciseTracker.Console.Features;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 

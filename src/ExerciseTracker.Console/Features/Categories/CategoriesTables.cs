@@ -4,9 +4,9 @@ using ExerciseTracker.Contracts.V1.Categories.Requests;
 using ExerciseTracker.Contracts.V1.Categories.Responses;
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Engines;
+namespace ExerciseTracker.Console.Features.Categories;
 
-public static class TableEngine
+public static class CategoriesTables
 {
     private static readonly string _dateFormat = "dddd, dd MMMM yyyy";
     private static readonly string _timeFormat = "HH:mm";
@@ -28,7 +28,7 @@ public static class TableEngine
         AnsiConsole.Write(table);
     }
 
-    public static void DisplayCategoryExercisesTable(GetCategoryByIdResponse category)
+    public static void DisplayCategoryExercises(GetCategoryByIdResponse category)
     {
         var exercisesTable = new Table()
         {
@@ -60,7 +60,7 @@ public static class TableEngine
         AnsiConsole.Write(panel);
     }
 
-    public static void DisplayCreateCategoryDetailsTable(CreateCategoryRequest category)
+    public static void DisplayCreateCategoryDetails(CreateCategoryRequest category)
     {
         var table = new Table();
         table.AddColumn(new TableColumn("[deepskyblue1]Category name[/]").Centered());
@@ -70,7 +70,7 @@ public static class TableEngine
         AnsiConsole.Write(table);
     }
 
-    public static void DisplayCategoryDetailsTable(CategoryRecord category)
+    public static void DisplayCategoryDetails(CategoryRecord category)
     {
         var table = new Table();
         table.AddColumn(new TableColumn("[deepskyblue1]Category name[/]").Centered());

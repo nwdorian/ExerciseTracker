@@ -1,7 +1,7 @@
-using ExerciseTracker.Console.Abstractions.Views;
+using ExerciseTracker.Console.Features.Categories.Abstractions;
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Menus;
+namespace ExerciseTracker.Console.Features.Categories;
 
 public class CategoriesMenu
 {

@@ -1,7 +1,9 @@
-using ExerciseTracker.Console.Input;
+using ExerciseTracker.Console.Common.Input;
+using ExerciseTracker.Console.Features.Categories;
+using ExerciseTracker.Console.Features.Exercises;
 using Spectre.Console;
 
-namespace ExerciseTracker.Console.Menus;
+namespace ExerciseTracker.Console.Features;
 
 public class MainMenu
 {
