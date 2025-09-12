@@ -1,4 +1,5 @@
 using ExerciseTracker.Console.Common.Validation;
+using ExerciseTracker.Contracts.V1.Categories;
 using Spectre.Console;
 
 namespace ExerciseTracker.Console.Common.Input;
@@ -18,7 +19,7 @@ public static class UserInput
     public static void PromptAnyKeyToContinue()
     {
         AnsiConsole.Write("Press any key to continue...");
-        System.Console.ReadLine();
+        System.Console.ReadKey();
     }
 
     public static int PromptPositiveInteger(string displayMessage, bool allowZero)
@@ -58,5 +59,34 @@ public static class UserInput
         }
 
         return AnsiConsole.Prompt(prompt);
+    }
+
+    public static DateTime PromptDateTime(string displayMessage)
+    {
+        var prompt = new TextPrompt<DateTime>(displayMessage);
+
+        prompt.ValidationErrorMessage("[red]Invalid input![/]");
+        prompt.Validate(InputValidation.IsValidDateTime);
+
+        return AnsiConsole.Prompt(prompt);
+    }
+
+    public static TimeSpan PromptDuration(string displayMessage)
+    {
+        var prompt = new TextPrompt<TimeSpan>(displayMessage);
+        prompt.ValidationErrorMessage("[red]Invalid input![/]");
+        prompt.Validate(InputValidation.IsValidDuration);
+
+        return AnsiConsole.Prompt(prompt);
+    }
+
+    public static async Task<CategoryRecord> SelectCategory(List<CategoryRecord> categories)
+    {
+        return await AnsiConsole.PromptAsync(
+            new SelectionPrompt<CategoryRecord>()
+                .Title("Select category:")
+                .AddChoices(categories)
+                .UseConverter(category => category.Name)
+        );
     }
 }

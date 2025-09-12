@@ -20,5 +20,5 @@ public class CreateExerciseValidator : AbstractValidator<CreateExerciseRequest>
             .GreaterThan(x => x.Start).WithMessage("End date must be after start date");
     }
 
-    private static bool BeInPast(DateTime date) => date < DateTime.Today;
+    private static bool BeInPast(DateTime date) => date < DateTime.Now;
 }
