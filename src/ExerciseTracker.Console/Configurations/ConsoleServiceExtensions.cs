@@ -30,11 +30,17 @@ public static class ConsoleServiceExtensions
         services.AddTransient<ExercisesMenu>();
     }
 
-    private static void ConfigureApplicationServices(this IServiceCollection services) =>
+    private static void ConfigureApplicationServices(this IServiceCollection services)
+    {
         services.AddTransient<ICategoriesService, CategoriesService>();
+        services.AddTransient<IExercisesService, ExercisesService>();
+    }
 
-    private static void ConfigureViewServices(this IServiceCollection services) =>
+    private static void ConfigureViewServices(this IServiceCollection services)
+    {
         services.AddTransient<ICategoriesView, CategoriesView>();
+        services.AddTransient<IExercisesView, ExercisesView>();
+    }
 
     private static void ConfigureRefitClients(this IServiceCollection services, IConfiguration configuration)
     {

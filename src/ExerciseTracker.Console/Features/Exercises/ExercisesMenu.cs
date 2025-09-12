@@ -1,9 +1,16 @@
+using ExerciseTracker.Console.Features.Exercises.Abstractions;
 using Spectre.Console;
 
 namespace ExerciseTracker.Console.Features.Exercises;
 
 public class ExercisesMenu
 {
+    private readonly IExercisesView _exercisesView;
+
+    public ExercisesMenu(IExercisesView exercisesView)
+    {
+        _exercisesView = exercisesView;
+    }
     private enum MenuOptions
     {
         GetAll,
@@ -13,11 +20,7 @@ public class ExercisesMenu
         MainMenu
     }
 
-#pragma warning disable CA1822 // Mark members as static
-#pragma warning disable S2325 // Methods and properties that don't access instance data should be static
     public async Task Display()
-#pragma warning restore S2325 // Methods and properties that don't access instance data should be static
-#pragma warning restore CA1822 // Mark members as static
     {
         var exit = false;
 
@@ -35,12 +38,16 @@ public class ExercisesMenu
             switch (selection)
             {
                 case MenuOptions.GetAll:
+                    await _exercisesView.GetAllExercises();
                     break;
                 case MenuOptions.Add:
+                    await _exercisesView.CreateExercise();
                     break;
                 case MenuOptions.Delete:
+                    await _exercisesView.DeleteExercise();
                     break;
                 case MenuOptions.Update:
+                    await _exercisesView.UpdateExercise();
                     break;
                 case MenuOptions.MainMenu:
                     exit = true;

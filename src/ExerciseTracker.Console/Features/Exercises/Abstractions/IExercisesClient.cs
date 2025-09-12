@@ -13,7 +13,7 @@ public interface IExercisesClient
     Task<ApiResponse<GetExerciseByIdResponse>> GetExerciseById(Guid id);
 
     [Post("/exercises")]
-    Task<ApiResponse<CreateExerciseResponse>> CreateExercise([Body] CreateExerciseRequest request);
+    Task<IApiResponse> CreateExercise([Body] CreateExerciseRequest request);
 
     [Delete("/exercises/{id}")]
     Task<IApiResponse> DeleteExercise(Guid id);
