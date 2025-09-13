@@ -1,3 +1,4 @@
+using System.Globalization;
 using ExerciseTracker.Console.Common.Input;
 using ExerciseTracker.Console.Features.Categories.Abstractions;
 using ExerciseTracker.Contracts.V1.Categories;
@@ -17,24 +18,20 @@ public class CategoriesService : ICategoriesService
         _categoriesClient = categoriesClient;
     }
 
-    public async Task<GetAllCategoriesResponse> GetAllCategories()
+    public async Task<List<CategoryRecord>> GetAllCategories()
     {
-        var categories = new GetAllCategoriesResponse(new List<CategoryRecord>());
+        var categories = new List<CategoryRecord>();
         try
         {
             var response = await _categoriesClient.GetAllCategories();
 
             if (!response.IsSuccessful)
             {
-                var errorMessage = string.IsNullOrWhiteSpace(response.Error.Content)
-                    ? response.Error.Message
-                    : response.Error.Content;
-
-                AnsiConsole.MarkupLine($"[red]{errorMessage}[/]");
+                AnsiConsole.MarkupLineInterpolated(CultureInfo.InvariantCulture, $"[red]{response.Error.Message}[/]");
                 UserInput.PromptAnyKeyToContinue();
                 return categories;
             }
-            categories = response.Content;
+            categories = response.Content.Categories;
         }
         catch (Exception ex)
         {
@@ -53,11 +50,7 @@ public class CategoriesService : ICategoriesService
 
             if (!response.IsSuccessful)
             {
-                var errorMessage = string.IsNullOrWhiteSpace(response.Error.Content)
-                    ? response.Error.Message
-                    : response.Error.Content;
-
-                AnsiConsole.MarkupLine($"[red]{errorMessage}[/]");
+                AnsiConsole.MarkupLineInterpolated(CultureInfo.InvariantCulture, $"[red]{response.Error.Message}[/]");
                 UserInput.PromptAnyKeyToContinue();
                 return category;
             }
@@ -79,12 +72,9 @@ public class CategoriesService : ICategoriesService
 
             if (!response.IsSuccessful)
             {
-                var errorMessage = string.IsNullOrWhiteSpace(response.Error.Content)
-                    ? response.Error.Message
-                    : response.Error.Content;
-
-                AnsiConsole.MarkupLine($"[red]{errorMessage}[/]");
+                AnsiConsole.MarkupLineInterpolated(CultureInfo.InvariantCulture, $"[red]{response.Error.Message}[/]");
                 UserInput.PromptAnyKeyToContinue();
+                return;
             }
 
             AnsiConsole.MarkupLine("[green]New category created successfully![/]");
@@ -105,12 +95,9 @@ public class CategoriesService : ICategoriesService
 
             if (!response.IsSuccessful)
             {
-                var errorMessage = string.IsNullOrWhiteSpace(response.Error.Content)
-                    ? response.Error.Message
-                    : response.Error.Content;
-
-                AnsiConsole.MarkupLine($"[red]{errorMessage}[/]");
+                AnsiConsole.MarkupLineInterpolated(CultureInfo.InvariantCulture, $"[red]{response.Error.Message}[/]");
                 UserInput.PromptAnyKeyToContinue();
+                return;
             }
 
             AnsiConsole.MarkupLine("[green]Category deleted successfully![/]");
@@ -131,12 +118,9 @@ public class CategoriesService : ICategoriesService
 
             if (!response.IsSuccessful)
             {
-                var errorMessage = string.IsNullOrWhiteSpace(response.Error.Content)
-                    ? response.Error.Message
-                    : response.Error.Content;
-
-                AnsiConsole.MarkupLine($"[red]{errorMessage}[/]");
+                AnsiConsole.MarkupLineInterpolated(CultureInfo.InvariantCulture, $"[red]{response.Error.Message}[/]");
                 UserInput.PromptAnyKeyToContinue();
+                return;
             }
 
             AnsiConsole.MarkupLine("[green]Category updated successfully![/]");

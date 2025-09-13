@@ -16,8 +16,7 @@ public class CategoriesView : ICategoriesView
 
     public async Task GetAllCategories()
     {
-        var response = await _categoriesService.GetAllCategories();
-        var categories = response.Categories;
+        var categories = await _categoriesService.GetAllCategories();
         if (categories.Count == 0)
         {
             AnsiConsole.MarkupLine("[red]No categories found[/]");
@@ -66,8 +65,7 @@ public class CategoriesView : ICategoriesView
 
     public async Task DeleteCategory()
     {
-        var response = await _categoriesService.GetAllCategories();
-        var categories = response.Categories;
+        var categories = await _categoriesService.GetAllCategories();
         if (categories.Count == 0)
         {
             AnsiConsole.MarkupLine("[red]No categories found[/]");
@@ -97,8 +95,7 @@ public class CategoriesView : ICategoriesView
 
     public async Task UpdateCategory()
     {
-        var response = await _categoriesService.GetAllCategories();
-        var categories = response.Categories;
+        var categories = await _categoriesService.GetAllCategories();
         if (categories.Count == 0)
         {
             AnsiConsole.MarkupLine("[red]No categories found[/]");
