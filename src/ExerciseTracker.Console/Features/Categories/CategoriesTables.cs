@@ -1,4 +1,5 @@
 using System.Globalization;
+using ExerciseTracker.Console.Common.Constants;
 using ExerciseTracker.Contracts.V1.Categories;
 using ExerciseTracker.Contracts.V1.Categories.Requests;
 using ExerciseTracker.Contracts.V1.Categories.Responses;
@@ -8,8 +9,6 @@ namespace ExerciseTracker.Console.Features.Categories;
 
 public static class CategoriesTables
 {
-    private static readonly string _dateFormat = "dddd, dd MMMM yyyy";
-    private static readonly string _timeFormat = "HH:mm";
     public static void DisplayCategoriesTable(List<CategoryRecord> categories)
     {
         var table = new Table
@@ -43,9 +42,9 @@ public static class CategoriesTables
         foreach (var exercise in category.Exercises)
         {
             exercisesTable.AddRow(
-                exercise.Start.ToString(_dateFormat, CultureInfo.InvariantCulture),
-                exercise.Start.ToString(_timeFormat, CultureInfo.InvariantCulture),
-                exercise.End.ToString(_timeFormat, CultureInfo.InvariantCulture),
+                exercise.Start.ToString(Formatting.DateDisplay, CultureInfo.InvariantCulture),
+                exercise.Start.ToString(Formatting.TimeDisplay, CultureInfo.InvariantCulture),
+                exercise.End.ToString(Formatting.TimeDisplay, CultureInfo.InvariantCulture),
                 exercise.Duration.ToFormattedDuration(),
                 string.IsNullOrWhiteSpace(exercise.Description) ? "No description" : exercise.Description
                 );
