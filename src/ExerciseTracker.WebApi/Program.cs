@@ -1,23 +1,38 @@
-var builder = WebApplication.CreateBuilder(args);
+using System.Globalization;
+using ExerciseTracker.WebApi.Configurations;
+using Serilog;
 
-// Add services to the container.
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console(formatProvider: CultureInfo.InvariantCulture)
+    .CreateBootstrapLogger();
 
-builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
-builder.Services.AddOpenApi();
-
-var app = builder.Build();
-
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+try
 {
-    _ = app.MapOpenApi();
+    Log.Information("Creating host");
+
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.ConfigureSerilog();
+
+    Log.Information("Configuring services");
+
+    builder.Services.AddWebApplicationServices(builder.Configuration);
+
+    var app = builder.Build();
+
+    Log.Information("Configuring middleware");
+
+    await app.UseWebApplicationMiddleware();
+
+    Log.Information("Application starting");
+
+    await app.RunAsync();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
-
-app.Run();
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    await Log.CloseAndFlushAsync();
+}

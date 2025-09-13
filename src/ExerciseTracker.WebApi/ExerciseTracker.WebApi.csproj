@@ -5,11 +5,25 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Asp.Versioning.Mvc" />
+    <PackageReference Include="Asp.Versioning.Mvc.ApiExplorer" />
+    <PackageReference Include="FluentValidation" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Serilog.AspNetCore" />
+    <PackageReference Include="Serilog.Sinks.Console" />
+    <PackageReference Include="Serilog.Sinks.File" />
+    <PackageReference Include="SharpGrip.FluentValidation.AutoValidation.Mvc" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
+    <ProjectReference Include="..\ExerciseTracker.Application\ExerciseTracker.Application.csproj" />
+    <ProjectReference Include="..\ExerciseTracker.Contracts\ExerciseTracker.Contracts.csproj" />
+    <ProjectReference Include="..\ExerciseTracker.Infrastructure\ExerciseTracker.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>
