@@ -18,9 +18,9 @@ public class CategoriesService : ICategoriesService
         _categoriesClient = categoriesClient;
     }
 
-    public async Task<GetAllCategoriesResponse> GetAllCategories()
+    public async Task<List<CategoryRecord>> GetAllCategories()
     {
-        var categories = new GetAllCategoriesResponse(new List<CategoryRecord>());
+        var categories = new List<CategoryRecord>();
         try
         {
             var response = await _categoriesClient.GetAllCategories();
@@ -31,7 +31,7 @@ public class CategoriesService : ICategoriesService
                 UserInput.PromptAnyKeyToContinue();
                 return categories;
             }
-            categories = response.Content;
+            categories = response.Content.Categories;
         }
         catch (Exception ex)
         {

@@ -37,8 +37,7 @@ public class ExercisesView : IExercisesView
         var end = start.AddHours(duration.TotalHours);
         var description = UserInput.PromptString("Description [grey](leave empty to skip)[/]:", allowEmpty: true);
 
-        var getCategoriesResponse = await _categoriesService.GetAllCategories();
-        var categories = getCategoriesResponse.Categories;
+        var categories = await _categoriesService.GetAllCategories();
         if (categories.Count == 0)
         {
             AnsiConsole.MarkupLine("[red]No categories found. Create a category first![/]");
@@ -123,8 +122,7 @@ public class ExercisesView : IExercisesView
         var end = start.AddHours(duration.TotalHours);
         var description = UserInput.PromptString("Description [grey](leave empty to skip)[/]:", allowEmpty: true);
 
-        var getCategoriesResponse = await _categoriesService.GetAllCategories();
-        var categories = getCategoriesResponse.Categories;
+        var categories = await _categoriesService.GetAllCategories();
         if (categories.Count == 0)
         {
             AnsiConsole.MarkupLine("[red]No categories found. Create a category first![/]");
